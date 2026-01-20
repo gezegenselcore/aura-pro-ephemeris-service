@@ -2,8 +2,8 @@
 
 ## Problem
 ```
-remote: Permission to GezegenselCore/aura-pro-ephemeris-service.git denied to cprkdr.
-fatal: unable to access 'https://github.com/GezegenselCore/aura-pro-ephemeris-service.git/': The requested URL returned error: 403
+remote: Permission to GezegenselCore/aura-pro-ephemeris-service.git denied to gezegenseltr.
+fatal: unable to access 'https://github.com/gezegenselgames/gezegenselcore.git/': The requested URL returned error: 403
 ```
 
 ## Solution: Use Personal Access Token
@@ -27,7 +27,7 @@ git push -u origin main
 ```
 
 When prompted:
-- **Username**: `cprkdr` (or your GitHub username)
+- **Username**: `gezegenseltr` (your GitHub username)
 - **Password**: **Paste the Personal Access Token** (NOT your GitHub password)
 
 ### Alternative: Use SSH

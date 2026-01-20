@@ -4,11 +4,12 @@
 
 ### 1. GitHub Web Interface
 
-1. Go to: https://github.com/organizations/GezegenselCore
+1. Go to: https://github.com/organizations/gezegenselgames (or navigate to GezegenselCore team)
 2. Click **"New repository"** button
 3. Fill in:
    - **Repository name**: `aura-pro-ephemeris-service`
    - **Description**: `AURA PRO Ephemeris Service - Swiss Ephemeris based cloud service for Chiron + asteroids (AGPL-3.0)`
+   - **Owner**: Select **`gezegenselgames/gezegenselcore`** (or appropriate team)
    - **Visibility**: **Public** (required for AGPL-3.0 compliance)
    - **Initialize repository**: **DO NOT CHECK** any boxes (README, .gitignore, license)
      - We already have these files locally
@@ -18,8 +19,9 @@
 
 After creation, verify the URL is:
 ```
-https://github.com/GezegenselCore/aura-pro-ephemeris-service
+https://github.com/gezegenselgames/gezegenselcore
 ```
+(Or the actual path where the repo was created)
 
 ## B) Push Local Code to GitHub
 
@@ -40,7 +42,7 @@ After creating the repo on GitHub, run these commands locally:
    cd aura-pro-ephemeris-service
    git push -u origin main
    ```
-   - Username: `cprkdr` (or your GitHub username)
+   - Username: `gezegenseltr` (your GitHub username)
    - Password: **Paste the Personal Access Token** (not your GitHub password)
 
 ### Option 2: Using SSH (Alternative)
@@ -58,16 +60,16 @@ After creating the repo on GitHub, run these commands locally:
 
 ### Option 3: Fix Organization Permissions
 
-If you're a member of GezegenselCore organization:
-1. Go to: https://github.com/organizations/GezegenselCore/settings/members
-2. Ensure your account (`cprkdr`) has **Write** or **Admin** permission
+If you're a member of GezegenselGames/GezegenselCore organization:
+1. Go to: https://github.com/organizations/gezegenselgames/settings/members
+2. Ensure your account (`gezegenseltr`) has **Write** or **Admin** permission
 3. If not, ask organization owner to grant you access
 
 ### Troubleshooting 403 Error
 
 If you still get `403 Permission denied`:
-- **Check:** Are you a member of `GezegenselCore` organization?
-- **Check:** Does the repo exist? Verify: https://github.com/GezegenselCore/aura-pro-ephemeris-service
+- **Check:** Are you a member of `gezegenselgames` organization?
+- **Check:** Does the repo exist? Verify the actual repo URL
 - **Try:** Use Personal Access Token (Option 1) - this usually works even without org membership if you created the repo
 
 ## C) Verify Push Success
