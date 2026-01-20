@@ -36,7 +36,7 @@ function loadSweph(): any {
 
 const EPHEMERIS_DIR = '/tmp/se';
 const BUCKET_NAME = process.env.EPHEMERIS_BUCKET || 'aura-ephemeris';
-const EPHEMERIS_PREFIX = process.env.EPHEMERIS_PREFIX || 'se/';
+const EPHEMERIS_PREFIX = process.env.EPHEMERIS_PREFIX || 'sweph/';
 
 /**
  * Ensure ephemeris files are downloaded from GCS
