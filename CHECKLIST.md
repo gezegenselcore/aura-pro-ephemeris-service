@@ -10,8 +10,9 @@
 
 ### 2. Ephemeris Files Management
 - [ ] Ephemeris files uploaded to GCS bucket (`gs://aura-ephemeris/se/`)
-  - Required: `seas_433.se1` (asteroid ephemeris)
-  - Optional: `sepl_433.se1` (planetary base)
+  - Required: `sepl_18.se1` (planetary base)
+  - Required: `semo_18.se1` (moon ephemeris)
+  - Required: `seas_18.se1` (asteroid ephemeris)
 - [ ] GCS bucket accessible from Firebase Functions
 - [ ] Files download to `/tmp/se/` on cold start
 - [ ] `setEphePath` / `swe_set_ephe_path` called after download

@@ -23,15 +23,17 @@ gsutil ls gs://aura-ephemeris/sweph/
 
 ## ✅ Adım 3: Ephemeris Dosyaları
 
-- [ ] `seas_433.se1` yüklendi → `gs://aura-ephemeris/sweph/seas_433.se1`
-- [ ] `sepl_433.se1` yüklendi → `gs://aura-ephemeris/sweph/sepl_433.se1`
+- [ ] `sepl_18.se1` yüklendi → `gs://aura-ephemeris/sweph/sepl_18.se1`
+- [ ] `semo_18.se1` yüklendi → `gs://aura-ephemeris/sweph/semo_18.se1`
+- [ ] `seas_18.se1` yüklendi → `gs://aura-ephemeris/sweph/seas_18.se1`
 
 **Doğrulama:**
 ```bash
 gsutil ls -lh gs://aura-ephemeris/sweph/
 # Beklenen:
-# gs://aura-ephemeris/sweph/seas_433.se1
-# gs://aura-ephemeris/sweph/sepl_433.se1
+# gs://aura-ephemeris/sweph/sepl_18.se1
+# gs://aura-ephemeris/sweph/semo_18.se1
+# gs://aura-ephemeris/sweph/seas_18.se1
 ```
 
 ## ✅ Adım 4: Firebase Environment Variables
@@ -99,7 +101,7 @@ firebase deploy --only functions:getProEphemeris
 | Bileşen | Durum | Yol/Değer |
 |---------|-------|-----------|
 | GCS Bucket | ⬜ | `gs://aura-ephemeris` |
-| Ephemeris Files | ⬜ | `sweph/seas_433.se1`, `sweph/sepl_433.se1` |
+| Ephemeris Files | ⬜ | `sweph/sepl_18.se1`, `sweph/semo_18.se1`, `sweph/seas_18.se1` |
 | Env Variables | ⬜ | Firebase Console'da set edilmeli |
 | Firestore Rules | ⬜ | `firestore.rules` içinde |
 | Deploy | ⬜ | `firebase deploy --only functions:getProEphemeris` |

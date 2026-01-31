@@ -122,14 +122,16 @@ Or use environment variables in `firebase.json`:
 2. **Download Swiss Ephemeris files:**
    - Download from [Swiss Ephemeris website](https://www.astro.com/swisseph/swephinfo_e.htm)
    - Required files for Chiron + asteroids:
-     - `seas_433.se1` - Main asteroid ephemeris (Ceres, Pallas, Juno, Vesta)
-     - `sepl_433.se1` - Planetary base ephemeris (may be needed for coordinate transforms)
+     - `sepl_18.se1` - Planetary base ephemeris (needed for coordinate transforms)
+     - `semo_18.se1` - Moon ephemeris (enhanced precision for lunar calculations)
+     - `seas_18.se1` - Main asteroid ephemeris (Ceres, Pallas, Juno, Vesta, Chiron)
      - Additional files if Chiron requires separate ephemeris
 
 3. **Upload to GCS:**
    ```bash
-   gsutil cp seas_433.se1 gs://aura-ephemeris/se/
-   gsutil cp sepl_433.se1 gs://aura-ephemeris/se/
+   gsutil cp sepl_18.se1 gs://aura-ephemeris/sweph/
+   gsutil cp semo_18.se1 gs://aura-ephemeris/sweph/
+   gsutil cp seas_18.se1 gs://aura-ephemeris/sweph/
    # Add other files as needed
    ```
 
@@ -137,8 +139,9 @@ Or use environment variables in `firebase.json`:
    ```
    gs://aura-ephemeris/
    └── se/
-       ├── seas_433.se1  (asteroid ephemeris)
-       ├── sepl_433.se1  (planetary base)
+       ├── sepl_18.se1  (planetary base)
+       ├── semo_18.se1  (moon ephemeris)
+       └── seas_18.se1  (asteroid ephemeris)
        └── ... (other required files)
    ```
 

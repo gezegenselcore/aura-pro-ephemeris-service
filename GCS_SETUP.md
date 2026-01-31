@@ -50,9 +50,12 @@ Swiss Ephemeris dosyalarını indirin:
 - **Swiss Ephemeris Website**: https://www.astro.com/swisseph/swephinfo_e.htm
 - **Download**: https://www.astro.com/ftp/swisseph/src/
 
-### Gerekli Dosyalar:
-1. **seas_433.se1** - Asteroid ephemeris (Ceres, Pallas, Juno, Vesta için)
-2. **sepl_433.se1** - Planetary base ephemeris (coordinate transforms için)
+### Gerekli Dosyalar (Version 18):
+1. **sepl_18.se1** - Planetary base ephemeris (coordinate transforms için)
+2. **semo_18.se1** - Moon ephemeris (enhanced precision for lunar calculations)
+3. **seas_18.se1** - Asteroid ephemeris (Ceres, Pallas, Juno, Vesta, Chiron için)
+
+**Not:** Bu set modern tarih aralığı için yeterlidir. Daha geniş tarih aralığı gerekirse ek setler eklenebilir.
 
 ### Alternatif Kaynak:
 - Swiss Ephemeris dosyaları genellikle `sweph` npm paketi ile birlikte gelir
@@ -64,8 +67,9 @@ Swiss Ephemeris dosyalarını indirin:
 
 ```bash
 # Dosyaları yükle
-gsutil cp seas_433.se1 gs://aura-ephemeris/sweph/
-gsutil cp sepl_433.se1 gs://aura-ephemeris/sweph/
+gsutil cp sepl_18.se1 gs://aura-ephemeris/sweph/
+gsutil cp semo_18.se1 gs://aura-ephemeris/sweph/
+gsutil cp seas_18.se1 gs://aura-ephemeris/sweph/
 
 # Doğrulama
 gsutil ls gs://aura-ephemeris/sweph/
@@ -74,9 +78,9 @@ gsutil ls gs://aura-ephemeris/sweph/
 ### Yöntem B: Google Cloud Console (Web UI)
 
 1. Bucket'a git: `gs://aura-ephemeris`
-2. "Create Folder" → `sweph`
+2. "Create Folder" → `sweph` (eğer yoksa)
 3. `sweph/` klasörüne gir
-4. "Upload Files" → `seas_433.se1` ve `sepl_433.se1` seç
+4. "Upload Files" → `sepl_18.se1`, `semo_18.se1`, ve `seas_18.se1` seç
 5. Upload
 
 ### Yöntem C: Firebase Console
@@ -109,10 +113,11 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
 gsutil ls -lh gs://aura-ephemeris/sweph/
 
 # Beklenen çıktı:
-# gs://aura-ephemeris/sweph/seas_433.se1
-# gs://aura-ephemeris/sweph/sepl_433.se1
+# gs://aura-ephemeris/sweph/sepl_18.se1
+# gs://aura-ephemeris/sweph/semo_18.se1
+# gs://aura-ephemeris/sweph/seas_18.se1
 
-# Dosya boyutlarını kontrol et (seas_433.se1 genellikle ~10-50MB)
+# Dosya boyutlarını kontrol et (her dosya genellikle ~10-50MB)
 gsutil du -sh gs://aura-ephemeris/sweph/*
 ```
 
@@ -121,8 +126,9 @@ gsutil du -sh gs://aura-ephemeris/sweph/*
 ```
 gs://aura-ephemeris/
 └── sweph/
-    ├── seas_433.se1  (asteroid ephemeris)
-    └── sepl_433.se1  (planetary base)
+    ├── sepl_18.se1  (planetary base)
+    ├── semo_18.se1  (moon ephemeris)
+    └── seas_18.se1  (asteroid ephemeris)
 ```
 
 ## Notlar

@@ -23,7 +23,7 @@ export async function checkRateLimit(uid: string): Promise<void> {
   const docRef = db.collection(COLLECTION_NAME).doc(docId);
 
   // Atomic increment with transaction
-  await db.runTransaction(async (transaction) => {
+  await db.runTransaction(async (transaction: any) => {
     const doc = await transaction.get(docRef);
 
     if (!doc.exists) {

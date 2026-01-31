@@ -22,8 +22,9 @@ Write-Host "   ⚠️  First, download files from:" -ForegroundColor Red
 Write-Host "   https://www.astro.com/swisseph/swephinfo_e.htm" -ForegroundColor Blue
 Write-Host ""
 Write-Host "   Then run:" -ForegroundColor Gray
-Write-Host "   gsutil cp seas_433.se1 gs://aura-ephemeris/sweph/" -ForegroundColor White
-Write-Host "   gsutil cp sepl_433.se1 gs://aura-ephemeris/sweph/" -ForegroundColor White
+Write-Host "   gsutil cp sepl_18.se1 gs://aura-ephemeris/sweph/" -ForegroundColor White
+Write-Host "   gsutil cp semo_18.se1 gs://aura-ephemeris/sweph/" -ForegroundColor White
+Write-Host "   gsutil cp seas_18.se1 gs://aura-ephemeris/sweph/" -ForegroundColor White
 
 # 4. Firebase Environment Variables
 Write-Host ""
@@ -51,7 +52,7 @@ Write-Host ""
 Write-Host "✅ Setup commands ready!" -ForegroundColor Green
 Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Cyan
-Write-Host "1. Download ephemeris files (seas_433.se1, sepl_433.se1)" -ForegroundColor White
+Write-Host "1. Download ephemeris files (sepl_18.se1, semo_18.se1, seas_18.se1)" -ForegroundColor White
 Write-Host "2. Upload to gs://aura-ephemeris/sweph/" -ForegroundColor White
 Write-Host "3. Set environment variables in Firebase Console" -ForegroundColor White
 Write-Host "4. Deploy function: firebase deploy --only functions:getProEphemeris" -ForegroundColor White

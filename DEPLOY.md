@@ -42,7 +42,9 @@ gsutil mb gs://aura-ephemeris
 
 # Upload ephemeris files
 # Download Swiss Ephemeris files and upload to bucket
-gsutil cp seas_433.se1 gs://aura-ephemeris/se/
+gsutil cp sepl_18.se1 gs://aura-ephemeris/sweph/
+gsutil cp semo_18.se1 gs://aura-ephemeris/sweph/
+gsutil cp seas_18.se1 gs://aura-ephemeris/sweph/
 # Add other required files...
 ```
 

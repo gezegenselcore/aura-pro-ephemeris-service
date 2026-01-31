@@ -1,0 +1,58 @@
+# Production smoke test for getAstroChart (Swiss Ephemeris full chart).
+# Repo: GezegenselCore/aura-pro-ephemeris-service — AURA işlemleri Gezegensel Core içinde.
+#
+# Secrets (repo veya org): GOOGLE_APPLICATION_CREDENTIALS_JSON, FIREBASE_WEB_API_KEY
+# Trigger: push to main (ilgili path'ler) veya workflow_dispatch.
+
+name: Smoke getAstroChart
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'functions/**'
+      - 'package.json'
+      - '.github/workflows/smoke-getAstroChart.yml'
+  workflow_dispatch: {}
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install smoke deps
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Write service account JSON
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+        run: |
+          mkdir -p .creds
+          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > .creds/sa.json
+
+      - name: Run smoke test
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/.creds/sa.json
+          FIREBASE_WEB_API_KEY: ${{ secrets.FIREBASE_WEB_API_KEY }}
+          GCLOUD_PROJECT: aura-2ca80
+        run: |
+          set -o pipefail
+          npm run smoke:astrochart 2>&1 | tee smoke-log.txt
+
+      - name: Upload smoke log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-getAstroChart-log
+          path: smoke-log.txt
+          if-no-files-found: ignore
+        continue-on-error: true

@@ -24,3 +24,29 @@ export function generateCacheKey(
   const input = `${utcISO}|${zodiacSystem}|${bodiesSorted}|${wantSpeed}`;
   return sha256(input);
 }
+
+/**
+ * Generate cache key for getAstroChart
+ */
+export function generateChartCacheKey(params: {
+  utcISO: string;
+  lat: number;
+  lon: number;
+  zodiacSystem: string;
+  houseSystem: string;
+  nodeType: string;
+  lilithType: string;
+  wantAspects: boolean;
+}): string {
+  const input = [
+    params.utcISO,
+    params.lat.toFixed(6),
+    params.lon.toFixed(6),
+    params.zodiacSystem,
+    params.houseSystem,
+    params.nodeType,
+    params.lilithType,
+    params.wantAspects,
+  ].join('|');
+  return sha256(input);
+}

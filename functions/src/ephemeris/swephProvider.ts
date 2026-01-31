@@ -38,66 +38,101 @@ const EPHEMERIS_DIR = '/tmp/se';
 const BUCKET_NAME = process.env.EPHEMERIS_BUCKET || 'aura-ephemeris';
 const EPHEMERIS_PREFIX = process.env.EPHEMERIS_PREFIX || 'sweph/';
 
+const REQUIRED_FILES = [
+  'sepl_18.se1', // Planetary base (needed for coordinate transforms)
+  'semo_18.se1', // Moon ephemeris (enhanced precision)
+  'seas_18.se1', // Main asteroid ephemeris (Ceres, Pallas, Juno, Vesta, Chiron)
+] as const;
+
+/**
+ * Set Swiss Ephemeris path - tries multiple API variants
+ */
+function setSwephEphePath(swephLib: any): boolean {
+  if (swephLib.setEphePath && typeof swephLib.setEphePath === 'function') {
+    swephLib.setEphePath(EPHEMERIS_DIR);
+    return true;
+  }
+  if (swephLib.set_ephe_path && typeof swephLib.set_ephe_path === 'function') {
+    swephLib.set_ephe_path(EPHEMERIS_DIR);
+    return true;
+  }
+  if (swephLib.swe_set_ephe_path && typeof swephLib.swe_set_ephe_path === 'function') {
+    swephLib.swe_set_ephe_path(EPHEMERIS_DIR);
+    return true;
+  }
+  return false;
+}
+
 /**
  * Ensure ephemeris files are downloaded from GCS
+ * GCS path: gs://{bucket}/{prefix}{filename} e.g. gs://aura-ephemeris/sweph/sepl_18.se1
  */
-async function ensureEphemerisFiles(): Promise<void> {
-  // Check if files already exist
+export async function ensureEphemerisFiles(): Promise<void> {
+  // Check if files already exist (warm start)
   if (fs.existsSync(EPHEMERIS_DIR)) {
     const files = fs.readdirSync(EPHEMERIS_DIR);
-    if (files.length > 0) {
-      // Files exist, assume they're valid
+    const hasAll = REQUIRED_FILES.every((f) => files.includes(f));
+    if (hasAll) {
+      console.log('[swephProvider] EP HE PATH:', EPHEMERIS_DIR);
+      console.log('[swephProvider] FILES IN TMP:', files.join(', '));
+      console.log('[swephProvider] Swiss Ephemeris provider active (warm)');
+      if (!ephemerisPathSet) {
+        const swephLib = loadSweph();
+        if (setSwephEphePath(swephLib)) {
+          ephemerisPathSet = true;
+        }
+      }
       return;
     }
   }
 
-  // Create directory
+  // Cold start: create dir and download from GCS
   fs.mkdirSync(EPHEMERIS_DIR, { recursive: true });
+  console.log('[swephProvider] Bucket:', BUCKET_NAME, 'Prefix:', EPHEMERIS_PREFIX);
+  console.log('[swephProvider] EP HE PATH:', EPHEMERIS_DIR);
 
   try {
-    // Initialize GCS client
     const storage = new Storage();
     const bucket = storage.bucket(BUCKET_NAME);
 
-    // List of required ephemeris files for Chiron + asteroids
-    // Swiss Ephemeris asteroid ephemeris files:
-    // - seas_433.se1: Main asteroid ephemeris (Ceres, Pallas, Juno, Vesta)
-    // - seas_434.se1: Extended asteroid ephemeris (if needed)
-    // - sepl_433.se1: Planetary ephemeris (base, may be needed for calculations)
-    // Note: Chiron may require additional file or be in seas_433.se1
-    // Verify exact file requirements with Swiss Ephemeris documentation
-    const requiredFiles = [
-      'seas_433.se1', // Main asteroid ephemeris (Ceres, Pallas, Juno, Vesta)
-      // 'seas_434.se1', // Extended asteroids (if Chiron not in seas_433)
-      // 'sepl_433.se1', // Planetary base (may be needed for coordinate transforms)
-    ];
+    const downloadedFiles: string[] = [];
+    const failedFiles: string[] = [];
 
-    // Download files
-    for (const filename of requiredFiles) {
+    for (const filename of REQUIRED_FILES) {
       const remotePath = `${EPHEMERIS_PREFIX}${filename}`;
       const localPath = path.join(EPHEMERIS_DIR, filename);
 
       try {
         await bucket.file(remotePath).download({ destination: localPath });
-        console.log(`[swephProvider] Downloaded ${filename}`);
+        console.log(`[swephProvider] Downloaded ${filename} from gs://${BUCKET_NAME}/${remotePath}`);
+        downloadedFiles.push(filename);
       } catch (err: any) {
-        console.warn(`[swephProvider] Failed to download ${filename}:`, err?.message);
-        // Continue with other files
+        console.error(`[swephProvider] MISSING EPHE FILE:`, filename, err?.message);
+        failedFiles.push(filename);
       }
     }
 
-    // Set ephemeris path for sweph (only once)
+    if (failedFiles.length > 0) {
+      throw new HttpsError(
+        'unavailable',
+        `Missing ephemeris files in GCS. Failed to download: ${failedFiles.join(', ')}. ` +
+          `Please upload (sepl_18.se1, semo_18.se1, seas_18.se1) to gs://${BUCKET_NAME}/${EPHEMERIS_PREFIX}`
+      );
+    }
+
+    console.log(
+      `[swephProvider] Ephemeris files downloaded: ${downloadedFiles.join(', ')}`
+    );
+
+    const filesInTmp = fs.readdirSync(EPHEMERIS_DIR);
+    console.log('[swephProvider] FILES IN TMP:', filesInTmp.join(', '));
+
     if (!ephemerisPathSet) {
       const swephLib = loadSweph();
-      // sweph API: setEphePath(path) or swe_set_ephe_path(path)
-      if (swephLib && typeof swephLib.setEphePath === 'function') {
-        swephLib.setEphePath(EPHEMERIS_DIR);
+      if (setSwephEphePath(swephLib)) {
         ephemerisPathSet = true;
-        console.log(`[swephProvider] Ephemeris path set to: ${EPHEMERIS_DIR}`);
-      } else if (swephLib && typeof swephLib.swe_set_ephe_path === 'function') {
-        swephLib.swe_set_ephe_path(EPHEMERIS_DIR);
-        ephemerisPathSet = true;
-        console.log(`[swephProvider] Ephemeris path set to: ${EPHEMERIS_DIR}`);
+        console.log('[swephProvider] sweph.set_ephe_path("/tmp/se") OK');
+        console.log('[swephProvider] Swiss Ephemeris provider active');
       } else {
         console.warn('[swephProvider] setEphePath function not found in sweph library');
       }

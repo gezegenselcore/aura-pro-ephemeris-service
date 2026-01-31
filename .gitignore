@@ -7,3 +7,5 @@ lib/
 .firebaserc.local
 coverage/
 .DS_Store
+.creds/
+smoke-log.txt
