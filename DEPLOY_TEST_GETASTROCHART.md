@@ -126,8 +126,8 @@ Expected: `PASS: 5/5 tests passed.` — exit 0.
 
 ### CI (GitHub Actions)
 
-Workflow: `.github/workflows/smoke-getAstroChart.yml` — **GezegenselCore/aura-pro-ephemeris-service** repo kökünde (AURA işlemleri Gezegensel Core içinde).
+Workflow: `.github/workflows/smoke-getAstroChart.yml` — **gezegenselcore/aura-pro-ephemeris-service** repo kökünde (yeni hesap).
 
 - **Trigger:** push to `main` (paths: `scripts/**`, `functions/**`, `package.json`, workflow file) or `workflow_dispatch`.
-- **Secrets:** `GOOGLE_APPLICATION_CREDENTIALS_JSON` (full SA JSON), `FIREBASE_WEB_API_KEY` (repo veya GezegenselCore org).
+- **Secrets:** `GOOGLE_APPLICATION_CREDENTIALS_JSON` (full SA JSON), `FIREBASE_WEB_API_KEY` (repo secrets).
 - **Artifact:** `smoke-getAstroChart-log` (smoke-log.txt) on success/failure.

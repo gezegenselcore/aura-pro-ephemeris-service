@@ -31,6 +31,7 @@ const baseRequest = {
   lat: 41.0082,
   lon: 28.9784,
   houseSystem: 'placidus',
+  zodiacSystem: 'tropical',
   wantAspects: true,
   debug: false,
 };

@@ -2,8 +2,8 @@
 
 ## Problem
 ```
-remote: Permission to GezegenselCore/aura-pro-ephemeris-service.git denied to cprkdr.
-fatal: unable to access 'https://github.com/GezegenselCore/aura-pro-ephemeris-service.git/': The requested URL returned error: 403
+remote: Permission to gezegenselcore/aura-pro-ephemeris-service.git denied (e.g. wrong account).
+fatal: unable to access 'https://github.com/gezegenselcore/aura-pro-ephemeris-service.git/': The requested URL returned error: 403
 ```
 
 ## Solution: Clear Old Credentials + Use Personal Access Token
@@ -44,26 +44,26 @@ git push -u origin main
 ```
 
 When prompted:
-- **Username**: `gezegenseltr`
+- **Username**: `gezegenselcore` (yeni hesap)
 - **Password**: **Paste the Personal Access Token** (NOT your GitHub password)
 
 ### Alternative: Use Token in URL (One-time)
 
 ```powershell
 cd D:\GezegenselGames\Aura\aura-pro-ephemeris-service
-git remote set-url origin https://gezegenseltr:YOUR_TOKEN@github.com/GezegenselCore/aura-pro-ephemeris-service.git
+git remote set-url origin https://gezegenselcore:YOUR_TOKEN@github.com/gezegenselcore/aura-pro-ephemeris-service.git
 git push -u origin main
 ```
 
 **⚠️ Warning**: This stores token in git config. Remove it after push:
 ```powershell
-git remote set-url origin https://github.com/GezegenselCore/aura-pro-ephemeris-service.git
+git remote set-url origin https://github.com/gezegenselcore/aura-pro-ephemeris-service.git
 ```
 
 ## Verify Push Success
 
 After successful push:
-- Check: https://github.com/GezegenselCore/aura-pro-ephemeris-service
+- Check: https://github.com/gezegenselcore/aura-pro-ephemeris-service
 - README.md should be visible
 - LICENSE file should be visible
 - All source files should be present

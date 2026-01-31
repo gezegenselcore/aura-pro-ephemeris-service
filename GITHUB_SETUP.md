@@ -4,12 +4,12 @@
 
 ### 1. GitHub Web Interface
 
-1. Go to: https://github.com/organizations/gezegenselgames (or navigate to GezegenselCore team)
+1. Go to: https://github.com/gezegenselcore (yeni hesap) → **New** repository
 2. Click **"New repository"** button
 3. Fill in:
    - **Repository name**: `aura-pro-ephemeris-service`
    - **Description**: `AURA PRO Ephemeris Service - Swiss Ephemeris based cloud service for Chiron + asteroids (AGPL-3.0)`
-   - **Owner**: Select **`gezegenselgames/gezegenselcore`** (or appropriate team)
+   - **Owner**: **gezegenselcore** (user account)
    - **Visibility**: **Public** (required for AGPL-3.0 compliance)
    - **Initialize repository**: **DO NOT CHECK** any boxes (README, .gitignore, license)
      - We already have these files locally
@@ -19,9 +19,8 @@
 
 After creation, verify the URL is:
 ```
-https://github.com/gezegenselgames/aura-pro-ephemeris-service
+https://github.com/gezegenselcore/aura-pro-ephemeris-service
 ```
-(Or if created under GezegenselCore team: `https://github.com/gezegenselgames/gezegenselcore/aura-pro-ephemeris-service`)
 
 ## B) Push Local Code to GitHub
 
@@ -42,7 +41,7 @@ After creating the repo on GitHub, run these commands locally:
    cd aura-pro-ephemeris-service
    git push -u origin main
    ```
-   - Username: `gezegenseltr` (your GitHub username)
+   - Username: `gezegenselcore` (yeni hesap)
    - Password: **Paste the Personal Access Token** (not your GitHub password)
 
 ### Option 2: Using SSH (Alternative)
@@ -50,7 +49,7 @@ After creating the repo on GitHub, run these commands locally:
 1. **Set SSH remote:**
    ```bash
    cd aura-pro-ephemeris-service
-   git remote set-url origin git@github.com:GezegenselCore/aura-pro-ephemeris-service.git
+   git remote set-url origin git@github.com:gezegenselcore/aura-pro-ephemeris-service.git
    ```
 
 2. **Push:**
@@ -58,17 +57,14 @@ After creating the repo on GitHub, run these commands locally:
    git push -u origin main
    ```
 
-### Option 3: Fix Organization Permissions
+### Option 3: Repo under user account
 
-If you're a member of GezegenselGames/GezegenselCore organization:
-1. Go to: https://github.com/organizations/gezegenselgames/settings/members
-2. Ensure your account (`gezegenseltr`) has **Write** or **Admin** permission
-3. If not, ask organization owner to grant you access
+Repo is under **gezegenselcore** (user account). Ensure you are logged in as that account and have a PAT with `repo` + `workflow` scope.
 
 ### Troubleshooting 403 Error
 
 If you still get `403 Permission denied`:
-- **Check:** Are you a member of `gezegenselgames` organization?
+- **Check:** Repo is under **gezegenselcore** account; use that account’s PAT.
 - **Check:** Does the repo exist? Verify the actual repo URL
 - **Try:** Use Personal Access Token (Option 1) - this usually works even without org membership if you created the repo
 

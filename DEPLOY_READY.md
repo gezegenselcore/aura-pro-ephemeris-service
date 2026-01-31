@@ -42,7 +42,7 @@ Tests:       7 passed, 7 total
 ## 📋 Deploy Öncesi Kontrol Listesi
 
 ### GCS Bucket
-- [x] Bucket: `aura-ephemeris` (europe-west3)
+- [x] Bucket: `aura-ephemeris` (europe-west3; **proje: auracloud-484016**)
 - [x] Klasör: `sweph/`
 - [x] Dosyalar yüklendi:
   - [x] `sepl_18.se1` ✅
@@ -145,9 +145,9 @@ AURA app'te `ProEphemerisService.ts` ile test edin.
 
 ## 🔗 Linkler
 
-- **GitHub Repo:** https://github.com/GezegenselCore/aura-pro-ephemeris-service
+- **GitHub Repo:** https://github.com/gezegenselcore/aura-pro-ephemeris-service
 - **Firebase Console:** https://console.firebase.google.com/project/aura-2ca80
-- **GCS Bucket:** gs://aura-ephemeris/sweph/
+- **GCS Bucket:** gs://aura-ephemeris/sweph/ (bucket projesi: **auracloud-484016**; aura-2ca80 compute SA'ya Storage Object Viewer verilmeli)
 - **Function URL:** (Deploy sonrası görünecek)
 
 ---

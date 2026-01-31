@@ -10,7 +10,7 @@
 - [x] GCS dosya indirme mantığı iyileştirildi
 
 ### 2. ✅ GCS Bucket Setup
-- [x] Bucket: `aura-ephemeris` (europe-west3 - Frankfurt)
+- [x] Bucket: `aura-ephemeris` (europe-west3; **proje: auracloud-484016** — cross-project: aura-2ca80 compute SA'ya bucket'ta Storage Object Viewer verilmeli)
 - [x] Klasör: `sweph/`
 - [x] Yüklenen dosyalar:
   - `seas_18.se1` ✅
@@ -66,9 +66,9 @@ firebase deploy --only functions:getProEphemeris
 
 ## 🔗 Linkler
 
-- **GitHub Repo:** https://github.com/GezegenselCore/aura-pro-ephemeris-service
+- **GitHub Repo:** https://github.com/gezegenselcore/aura-pro-ephemeris-service
 - **Firebase Console:** https://console.firebase.google.com/project/aura-2ca80
-- **GCS Bucket:** gs://aura-ephemeris/sweph/
+- **GCS Bucket:** gs://aura-ephemeris/sweph/ (bucket projesi: **auracloud-484016**)
 
 ## 📝 Sonraki Adımlar
 

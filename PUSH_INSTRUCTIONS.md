@@ -2,8 +2,8 @@
 
 ## Problem
 ```
-remote: Permission to GezegenselCore/aura-pro-ephemeris-service.git denied to gezegenseltr.
-fatal: unable to access 'https://github.com/gezegenselgames/gezegenselcore.git/': The requested URL returned error: 403
+remote: Permission to gezegenselcore/aura-pro-ephemeris-service.git denied (wrong account or token).
+fatal: unable to access 'https://github.com/gezegenselcore/aura-pro-ephemeris-service.git/': The requested URL returned error: 403
 ```
 
 ## Solution: Use Personal Access Token
@@ -27,7 +27,7 @@ git push -u origin main
 ```
 
 When prompted:
-- **Username**: `gezegenseltr` (your GitHub username)
+- **Username**: `gezegenselcore` (yeni hesap)
 - **Password**: **Paste the Personal Access Token** (NOT your GitHub password)
 
 ### Alternative: Use SSH
@@ -36,21 +36,21 @@ If you have SSH keys set up:
 
 ```powershell
 cd D:\GezegenselGames\Aura\aura-pro-ephemeris-service
-git remote set-url origin git@github.com:GezegenselCore/aura-pro-ephemeris-service.git
+git remote set-url origin git@github.com:gezegenselcore/aura-pro-ephemeris-service.git
 git push -u origin main
 ```
 
-### Check Organization Membership
+### Check credentials
 
 If you're still getting 403:
-1. Verify you're a member: https://github.com/orgs/GezegenselCore/people
-2. If not a member, ask organization owner to add you
-3. Or ensure you created the repo (creators have push access)
+1. Ensure Windows Credential Manager has **gezegenselcore** (not gezegenselcores/gezegenseltr) for git:https://github.com
+2. Use a PAT with `repo` and `workflow` scope from the **gezegenselcore** account
+3. Repo must exist at https://github.com/gezegenselcore/aura-pro-ephemeris-service
 
 ## Quick Test
 
 After push, verify:
-- https://github.com/GezegenselCore/aura-pro-ephemeris-service
+- https://github.com/gezegenselcore/aura-pro-ephemeris-service
 - README.md should be visible
 - LICENSE file should be visible
 - All source files should be present

@@ -1,5 +1,7 @@
 # Google Cloud Storage Setup Guide
 
+**Not:** Bucket `aura-ephemeris` projesi **auracloud-484016** içindedir. getAstroChart **aura-2ca80** projesinde çalıştığı için cross-project erişim gerekir: aura-ephemeris bucket Permissions'ta `495347479779-compute@developer.gserviceaccount.com` hesabına **Storage Object Viewer** verilmeli.
+
 ## 1. GCS Bucket Oluşturma/Kontrol
 
 ### Yöntem A: Google Cloud Console (Web UI)

@@ -37,7 +37,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
         run: |
           mkdir -p .creds
-          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > .creds/sa.json
+          printf '%s\n' "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > .creds/sa.json
 
       - name: Run smoke test
         env:
@@ -45,6 +45,7 @@ jobs:
           FIREBASE_WEB_API_KEY: ${{ secrets.FIREBASE_WEB_API_KEY }}
           GCLOUD_PROJECT: aura-2ca80
         run: |
+          echo "FIREBASE_WEB_API_KEY is set: $([ -n \"$FIREBASE_WEB_API_KEY\" ] && echo yes || echo no)"
           set -o pipefail
           npm run smoke:astrochart 2>&1 | tee smoke-log.txt
 
